@@ -164,6 +164,37 @@ export default function DocsTab() {
           while maintaining complete data privacy and HIPAA compliance principles.
         </p>
       </section>
+
+      {/* Contact */}
+      <section>
+        <h3 className="text-lg font-bold text-gray-800 mb-4">📬 Contact</h3>
+        <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex flex-col sm:flex-row sm:items-center gap-4">
+          <div className="flex-1">
+            <p className="font-semibold text-gray-800 text-sm mb-1">William C. Knight</p>
+            <p className="text-xs text-gray-500 leading-relaxed">
+              Healthcare Data Engineer · ETL · SQL · Snowflake · dbt · Airflow
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://www.linkedin.com/in/wcknight12"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg px-4 py-2 transition-colors"
+            >
+              🔗 LinkedIn
+            </a>
+            <a
+              href="https://github.com/wcknight12"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-gray-800 hover:bg-gray-900 text-white text-xs font-semibold rounded-lg px-4 py-2 transition-colors"
+            >
+              🐙 GitHub
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

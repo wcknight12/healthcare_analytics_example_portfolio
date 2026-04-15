@@ -90,7 +90,7 @@ export default function App() {
       {/* Footer */}
       <footer className="border-t border-gray-200 bg-white mt-12">
         <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-sm text-gray-500">
-          <span>© 2024 William C. Knight — Healthcare Data Engineering Portfolio</span>
+          <span>© {new Date().getFullYear()} William C. Knight — Healthcare Data Engineering Portfolio</span>
           <span className="text-xs">
             Built with React · TypeScript · Tailwind CSS
           </span>

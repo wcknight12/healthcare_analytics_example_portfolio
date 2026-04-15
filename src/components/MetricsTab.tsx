@@ -1,6 +1,42 @@
 import { useState } from "react";
 import { metrics } from "../data/portfolioData";
 
+type ChartData = NonNullable<(typeof metrics)[0]["chartData"]>;
+
+function BarChart({ chartData }: { chartData: ChartData }) {
+  const max = Math.max(...chartData.segments.map((s) => s.value));
+
+  const format = (v: number) => {
+    if (chartData.unit === "$") return `$${v.toLocaleString()}`;
+    if (chartData.unit === "%") return `${v}%`;
+    return `${v.toLocaleString()} ${chartData.unit}`;
+  };
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="px-5 py-3 border-b border-gray-100">
+        <span className="text-sm font-semibold text-gray-700">{chartData.title}</span>
+      </div>
+      <div className="p-5 space-y-3">
+        {chartData.segments.map((seg) => (
+          <div key={seg.label} className="flex items-center gap-3">
+            <span className="text-xs text-gray-500 w-28 text-right shrink-0">{seg.label}</span>
+            <div className="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
+              <div
+                className={`h-full ${chartData.color} rounded-full transition-all duration-700`}
+                style={{ width: `${(seg.value / max) * 100}%` }}
+              />
+            </div>
+            <span className="text-xs font-semibold text-gray-700 w-20 shrink-0">
+              {format(seg.value)}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function MetricsTab() {
   const [selectedMetric, setSelectedMetric] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -58,9 +94,11 @@ export default function MetricsTab() {
         ))}
       </div>
 
-      {/* SQL panel */}
+      {/* Chart + SQL panel */}
       {active && (
-        <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-700">
+        <div className="space-y-4">
+          {active.chartData && <BarChart chartData={active.chartData} />}
+          <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg border border-gray-700">
           <div className="flex items-center justify-between px-5 py-3 border-b border-gray-700">
             <div>
               <span className="text-white font-semibold text-sm">{active.label}</span>
@@ -78,6 +116,7 @@ export default function MetricsTab() {
           </div>
           <div className="border-t border-gray-700 px-5 py-3 bg-gray-800">
             <p className="text-xs text-gray-400">{active.description}</p>
+          </div>
           </div>
         </div>
       )}

@@ -79,6 +79,47 @@ export default function DatasetsTab() {
             </tbody>
           </table>
         </div>
+
+        {/* Sample data rows */}
+        {dataset.sampleRows && dataset.sampleRows.length > 0 && (
+          <div className="border-t border-gray-100">
+            <div className="px-6 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
+              <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                Sample Data
+              </span>
+              <span className="text-xs bg-amber-100 text-amber-700 rounded-full px-2 py-0.5 font-medium">
+                Synthetic
+              </span>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="bg-gray-50 text-gray-400 text-xs uppercase">
+                    {dataset.fields.map((f) => (
+                      <th key={f.name} className="px-4 py-2 text-left font-semibold whitespace-nowrap">
+                        {f.name}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {dataset.sampleRows.map((row, i) => (
+                    <tr key={i} className="hover:bg-gray-50 transition-colors">
+                      {dataset.fields.map((f) => (
+                        <td
+                          key={f.name}
+                          className="px-4 py-2.5 font-mono text-gray-600 whitespace-nowrap"
+                        >
+                        {(row as Record<string, string>)[f.name] ?? "—"}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* ERD overview */}

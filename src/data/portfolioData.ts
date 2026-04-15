@@ -112,6 +112,11 @@ export const datasets = [
       { name: "updated_at", type: "TIMESTAMP", pk: false, description: "Last update timestamp" },
     ],
     standards: ["HL7 v2.x", "FHIR R4"],
+    sampleRows: [
+      { patient_id: "a1b2c3d4-…", first_name: "James", last_name: "Rivera", date_of_birth: "1958-03-14", gender: "Male", insurance_type: "Medicare", zip_code: "30301", created_at: "2023-01-15 08:22:10", updated_at: "2024-09-02 11:05:44" },
+      { patient_id: "e5f6g7h8-…", first_name: "Maria", last_name: "Chen", date_of_birth: "1987-11-27", gender: "Female", insurance_type: "Commercial", zip_code: "10001", created_at: "2023-04-08 14:30:55", updated_at: "2024-11-18 09:17:22" },
+      { patient_id: "i9j0k1l2-…", first_name: "Robert", last_name: "Johnson", date_of_birth: "1945-07-02", gender: "Male", insurance_type: "Medicaid", zip_code: "60601", created_at: "2022-11-22 07:45:30", updated_at: "2024-08-30 16:40:11" },
+    ],
   },
   {
     id: "encounters",
@@ -132,6 +137,11 @@ export const datasets = [
       { name: "readmission_flag", type: "BOOLEAN", pk: false, description: "30-day readmission indicator" },
     ],
     standards: ["HL7 v2.x", "ICD-10"],
+    sampleRows: [
+      { encounter_id: "enc-00124-…", patient_id: "a1b2c3d4-…", provider_id: "prov-088-…", encounter_type: "Inpatient", admission_date: "2024-09-01", discharge_date: "2024-09-05", length_of_stay: "4", total_cost: "9420.50", readmission_flag: "false" },
+      { encounter_id: "enc-00389-…", patient_id: "e5f6g7h8-…", provider_id: "prov-041-…", encounter_type: "Emergency", admission_date: "2024-10-14", discharge_date: "2024-10-14", length_of_stay: "0", total_cost: "1847.00", readmission_flag: "false" },
+      { encounter_id: "enc-00512-…", patient_id: "i9j0k1l2-…", provider_id: "prov-088-…", encounter_type: "Inpatient", admission_date: "2024-11-03", discharge_date: "2024-11-10", length_of_stay: "7", total_cost: "18240.75", readmission_flag: "true" },
+    ],
   },
   {
     id: "diagnoses",
@@ -150,6 +160,11 @@ export const datasets = [
       { name: "is_principal", type: "BOOLEAN", pk: false, description: "Principal diagnosis indicator" },
     ],
     standards: ["ICD-10"],
+    sampleRows: [
+      { diagnosis_id: "dx-0091-…", encounter_id: "enc-00124-…", icd10_code: "I25.10", description: "Atherosclerotic heart disease", clinical_category: "Cardiovascular", diagnosis_seq: "1", is_principal: "true" },
+      { diagnosis_id: "dx-0092-…", encounter_id: "enc-00124-…", icd10_code: "E11.9", description: "Type 2 diabetes mellitus", clinical_category: "Endocrine", diagnosis_seq: "2", is_principal: "false" },
+      { diagnosis_id: "dx-0201-…", encounter_id: "enc-00512-…", icd10_code: "J18.9", description: "Pneumonia, unspecified organism", clinical_category: "Respiratory", diagnosis_seq: "1", is_principal: "true" },
+    ],
   },
   {
     id: "medications",
@@ -170,6 +185,11 @@ export const datasets = [
       { name: "fill_date", type: "DATE", pk: false, description: "Prescription fill date" },
     ],
     standards: ["NDC"],
+    sampleRows: [
+      { medication_id: "med-1042-…", patient_id: "a1b2c3d4-…", encounter_id: "enc-00124-…", ndc_code: "00071-0155", drug_name: "Lisinopril 10mg", dosage: "10 mg PO QD", days_supply: "30", prescriber_id: "prov-088-…", fill_date: "2024-09-06" },
+      { medication_id: "med-1043-…", patient_id: "e5f6g7h8-…", encounter_id: "enc-00389-…", ndc_code: "00093-7254", drug_name: "Metformin 500mg", dosage: "500 mg PO BID", days_supply: "90", prescriber_id: "prov-041-…", fill_date: "2024-10-15" },
+      { medication_id: "med-1044-…", patient_id: "i9j0k1l2-…", encounter_id: "enc-00512-…", ndc_code: "00069-2670", drug_name: "Amoxicillin 500mg", dosage: "500 mg PO TID", days_supply: "10", prescriber_id: "prov-088-…", fill_date: "2024-11-10" },
+    ],
   },
   {
     id: "providers",
@@ -188,6 +208,11 @@ export const datasets = [
       { name: "quality_score", type: "DECIMAL(5,2)", pk: false, description: "Composite quality score (0-100)" },
     ],
     standards: ["NPI"],
+    sampleRows: [
+      { provider_id: "prov-088-…", npi_number: "1234567890", first_name: "Sarah", last_name: "Patel", specialty: "Cardiology", facility: "Metro Heart Center", quality_score: "94.20" },
+      { provider_id: "prov-041-…", npi_number: "0987654321", first_name: "David", last_name: "Kim", specialty: "Internal Medicine", facility: "Northside Medical Group", quality_score: "92.10" },
+      { provider_id: "prov-117-…", npi_number: "1122334455", first_name: "Lisa", last_name: "Torres", specialty: "Emergency Medicine", facility: "Regional Medical Center", quality_score: "91.50" },
+    ],
   },
   {
     id: "claims",
@@ -208,6 +233,11 @@ export const datasets = [
       { name: "claim_status", type: "VARCHAR(20)", pk: false, description: "Paid, Denied, Pending, Appealed" },
     ],
     standards: ["HL7 v2.x"],
+    sampleRows: [
+      { claim_id: "clm-5591-…", encounter_id: "enc-00124-…", patient_id: "a1b2c3d4-…", claim_date: "2024-09-10", billed_amount: "9420.50", allowed_amount: "7800.00", paid_amount: "6240.00", denial_reason: "—", claim_status: "Paid" },
+      { claim_id: "clm-5592-…", encounter_id: "enc-00389-…", patient_id: "e5f6g7h8-…", claim_date: "2024-10-18", billed_amount: "1847.00", allowed_amount: "0.00", paid_amount: "0.00", denial_reason: "Authorization Required", claim_status: "Denied" },
+      { claim_id: "clm-5593-…", encounter_id: "enc-00512-…", patient_id: "i9j0k1l2-…", claim_date: "2024-11-14", billed_amount: "18240.75", allowed_amount: "15200.00", paid_amount: "12160.00", denial_reason: "—", claim_status: "Paid" },
+    ],
   },
 ];
 
@@ -223,6 +253,17 @@ export const metrics = [
     benchmark: "Industry benchmark: <10%",
     icon: "🔄",
     description: "Tracks patients readmitted within 30 days of discharge. Below industry benchmark indicates strong care coordination.",
+    chartData: {
+      title: "Readmission Rate by Insurance Type",
+      unit: "%",
+      color: "bg-blue-500",
+      segments: [
+        { label: "Medicare", value: 11.4 },
+        { label: "Medicaid", value: 10.8 },
+        { label: "Self-Pay", value: 6.7 },
+        { label: "Commercial", value: 5.9 },
+      ],
+    },
     sql: `WITH readmissions AS (
   SELECT 
     e1.patient_id,
@@ -263,6 +304,17 @@ WHERE e.encounter_type = 'Inpatient'
     benchmark: "Segmented by encounter type",
     icon: "🛏️",
     description: "Average inpatient length of stay. Used for capacity planning and efficiency monitoring.",
+    chartData: {
+      title: "Avg Length of Stay by Encounter Type",
+      unit: "days",
+      color: "bg-blue-500",
+      segments: [
+        { label: "ICU", value: 7.8 },
+        { label: "Inpatient", value: 4.2 },
+        { label: "Observation", value: 1.9 },
+        { label: "Emergency", value: 0.4 },
+      ],
+    },
     sql: `SELECT
   encounter_type,
   d.clinical_category,
@@ -292,6 +344,18 @@ ORDER BY avg_los_days DESC;`,
     benchmark: "Composite HEDIS measure",
     icon: "⭐",
     description: "Composite HEDIS quality measure including medication adherence and blood pressure control.",
+    chartData: {
+      title: "Quality Score by Specialty",
+      unit: "pts",
+      color: "bg-blue-500",
+      segments: [
+        { label: "Cardiology", value: 94.2 },
+        { label: "Orthopedics", value: 93.8 },
+        { label: "Internal Med", value: 92.1 },
+        { label: "Emergency", value: 91.5 },
+        { label: "Neurology", value: 90.3 },
+      ],
+    },
     sql: `WITH provider_metrics AS (
   SELECT
     p.provider_id,
@@ -340,6 +404,17 @@ ORDER BY quality_score DESC;`,
     benchmark: "Tracks by specialty & diagnosis",
     icon: "💰",
     description: "Average cost per encounter segmented by specialty and diagnosis. Z-score analysis identifies cost outliers.",
+    chartData: {
+      title: "Avg Cost by Encounter Type",
+      unit: "$",
+      color: "bg-green-500",
+      segments: [
+        { label: "Inpatient", value: 8250 },
+        { label: "Emergency", value: 1847 },
+        { label: "Outpatient", value: 423 },
+        { label: "Telehealth", value: 156 },
+      ],
+    },
     sql: `WITH encounter_costs AS (
   SELECT
     e.encounter_id,
@@ -380,6 +455,18 @@ ORDER BY avg_cost DESC;`,
     benchmark: "Target: <5%",
     icon: "📄",
     description: "First-pass claim acceptance rate. Tracks denial reasons to guide process improvement.",
+    chartData: {
+      title: "Denial Rate by Reason",
+      unit: "%",
+      color: "bg-green-500",
+      segments: [
+        { label: "Auth Required", value: 42 },
+        { label: "Coding Error", value: 28 },
+        { label: "Duplicate", value: 15 },
+        { label: "Missing Info", value: 9 },
+        { label: "Other", value: 6 },
+      ],
+    },
     sql: `SELECT
   COALESCE(c.denial_reason, 'Paid / Not Denied') AS denial_reason,
   c.claim_status,
@@ -408,6 +495,19 @@ ORDER BY claim_count DESC;`,
     benchmark: "Across all service lines",
     icon: "👥",
     description: "Monthly unique patient volume across service lines. Supports staffing and resource allocation decisions.",
+    chartData: {
+      title: "Monthly Volume by Service Line",
+      unit: "pts",
+      color: "bg-orange-500",
+      segments: [
+        { label: "Cardiology", value: 2850 },
+        { label: "Orthopedics", value: 2340 },
+        { label: "Internal Med", value: 1980 },
+        { label: "Emergency", value: 1752 },
+        { label: "Neurology", value: 1420 },
+        { label: "Oncology", value: 1116 },
+      ],
+    },
     sql: `SELECT
   DATE_TRUNC('month', e.admission_date) AS month,
   e.encounter_type,

@@ -7,11 +7,18 @@ export default function SqlTab() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
-  const filtered =
-    selectedCategory === "All"
-      ? sqlQueries
-      : sqlQueries.filter((q) => q.category === selectedCategory);
+  const filtered = sqlQueries.filter((q) => {
+    const matchesCategory = selectedCategory === "All" || q.category === selectedCategory;
+    const term = search.toLowerCase();
+    const matchesSearch =
+      !term ||
+      q.title.toLowerCase().includes(term) ||
+      q.description.toLowerCase().includes(term) ||
+      q.sql.toLowerCase().includes(term);
+    return matchesCategory && matchesSearch;
+  });
 
   const handleCopy = (q: (typeof sqlQueries)[0]) => {
     navigator.clipboard.writeText(q.sql);
@@ -21,21 +28,30 @@ export default function SqlTab() {
 
   return (
     <div className="space-y-6">
-      {/* Category filters */}
-      <div className="flex flex-wrap gap-2">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-              selectedCategory === cat
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* Search + category filters */}
+      <div className="space-y-3">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search queries by title, description, or SQL keyword…"
+          className="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+        />
+        <div className="flex flex-wrap gap-2">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setSelectedCategory(cat)}
+              className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                selectedCategory === cat
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Legend */}
@@ -56,6 +72,11 @@ export default function SqlTab() {
 
       {/* Query cards */}
       <div className="space-y-4">
+        {filtered.length === 0 && (
+          <div className="text-center py-12 text-gray-400 text-sm">
+            No queries match your search. Try a different keyword or category.
+          </div>
+        )}
         {filtered.map((q) => (
           <div
             key={q.id}
