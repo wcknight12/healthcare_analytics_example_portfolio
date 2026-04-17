@@ -10,6 +10,7 @@
 
 ## Features
 
+- **Executive Summary Tab** — High-level portfolio overview, KPI highlights, and 6 key analytical findings with recommendations
 - **Pipeline Tab** — 5-stage ETL architecture (Extract → Validate → Transform → Load → Monitor) with timings and output details
 - **Datasets Tab** — Interactive schema browser for 6 core healthcare tables (2.4M patients, 8.7M encounters, and more)
 - **Metrics Tab** — 6 key KPIs (readmission rate, cost per encounter, etc.) with the SQL query behind each metric

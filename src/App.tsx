@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ExecutiveSummaryTab from "./components/ExecutiveSummaryTab";
 import PipelineTab from "./components/PipelineTab";
 import DatasetsTab from "./components/DatasetsTab";
 import MetricsTab from "./components/MetricsTab";
@@ -6,6 +7,7 @@ import SqlTab from "./components/SqlTab";
 import DocsTab from "./components/DocsTab";
 
 const TABS = [
+  { id: "summary", label: "📋 Executive Summary" },
   { id: "pipeline", label: "🚀 Pipeline" },
   { id: "datasets", label: "🗄️ Datasets" },
   { id: "metrics", label: "📈 Metrics" },
@@ -16,7 +18,7 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<TabId>("pipeline");
+  const [activeTab, setActiveTab] = useState<TabId>("summary");
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -80,6 +82,7 @@ export default function App() {
 
       {/* Tab content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
+        {activeTab === "summary" && <ExecutiveSummaryTab />}
         {activeTab === "pipeline" && <PipelineTab />}
         {activeTab === "datasets" && <DatasetsTab />}
         {activeTab === "metrics" && <MetricsTab />}
